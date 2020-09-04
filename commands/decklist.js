@@ -15,13 +15,19 @@ exports.run = async(client, message, args) => {
 
   let embed = new Discord.MessageEmbed(); //.setTitle("Deck List:");
   let deck = null;
-  var deckList = [[],[],[],[],[],[],[]];
+  var deckList = [[],[],[],[],[],[],[],[]];
 
   try {
     deck = DeckEncoder.decode(args[0]);
   } catch(err) {
     //console.log(err);
     return message.channel.send(`Please provide a valid deck code, ${message.author}!`);
+  }
+
+  for (var i = 0; i < deck.length; i++) {
+    if (deck[i].code.includes("undefined")) {
+      deck[i].code = deck[i].code.replace("undefined", "MT");
+    }
   }
 
   for (var i = 0; i < deck.length; i++) {
@@ -36,6 +42,7 @@ exports.run = async(client, message, args) => {
           case "Noxus": deckList[4][i] = `**[${data[j].cost}]** ${data[j].name} x${deck[i].count}`; break;
           case "Piltover & Zaun": deckList[5][i] = `**[${data[j].cost}]** ${data[j].name} x${deck[i].count}`; break;
           case "Shadow Isles": deckList[6][i] = `**[${data[j].cost}]** ${data[j].name} x${deck[i].count}`; break;
+          case "Targon": deckList[7][i] = `**[${data[j].cost}]** ${data[j].name} x${deck[i].count}`; break;
         }
       }
     }
@@ -83,6 +90,12 @@ exports.run = async(client, message, args) => {
     embed.addField(`${shadIcon} Shadow Isles`, deckList[6].join("\n"), true);
   }
 
+  if (deckList[7].length > 0) {
+    deckList[7].sort();
+    const tarIcon = client.emojis.cache.get("749116410122469406");
+    embed.addField(`${tarIcon} Targon`, deckList[7].join("\n"), true);
+  }
+  
   message.channel.send(embed);
   // for (var j = 0; j < data.length; j++) {
   //   if (data[j].cardCode == deck[i].code) {

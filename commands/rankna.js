@@ -29,10 +29,10 @@ exports.run = async(client, message, args) => {
     let server = premData.find(data => data.id === message.guild.id);
     //console.log(server);
     
-    if (server == null) {
+    if (server == null && Math.random() >= 0.5) {
       const embed = {
-        "title": "Thanks for choosing us!",
-        "description": "Feel free to support our Patreon page [here](https://www.patreon.com/wrenchbot) to keep the bot running 24/7, it would mean a lot to us too! \n\n**Invite link:** [https://discord.com/api/oauth2/authorize...](https://discord.com/api/oauth2/authorize?client_id=719897354794303548&permissions=387136&scope=bot)",
+        "title": "Thanks for your support",
+        "description": "Hey there, first of all, we would like to thank you for choosing our bot. But as embarrasing as it may sounds, we would very much appreciate for your help if you could leave us some donations [here](https://www.patreon.com/wrenchbot). Thanks! \n\n**Invite link:** [https://discord.com/api/oauth2/authorize...](https://discord.com/api/oauth2/authorize?client_id=719897354794303548&permissions=387136&scope=bot)",
         "url": "https://www.patreon.com/wrenchbot",
         "color": 15644545,
         "thumbnail": {
